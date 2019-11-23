@@ -5,6 +5,8 @@ import java.util.Objects;
 
 public class ImmutableStack<T> implements Stack<T> {
 
+    private static final String EMPTY_EX_MSG = "Empty Stack";
+
     private final T head;
     private final ImmutableStack<T> tail;
 
@@ -25,14 +27,14 @@ public class ImmutableStack<T> implements Stack<T> {
     @Override
     public Stack<T> pop() {
         if (this.isEmpty())
-            throw new UnsupportedOperationException("Stack is empty");
+            throw new UnsupportedOperationException(EMPTY_EX_MSG);
         return new ImmutableStack<T>(tail.head, tail.tail);
     }
 
     @Override
     public T peek() {
         if (this.isEmpty())
-            throw new NoSuchElementException("Stack is empty");
+            throw new NoSuchElementException(EMPTY_EX_MSG);
         return head;
     }
 

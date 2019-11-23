@@ -1,12 +1,13 @@
 package com.demo.util;
 
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 public class ImmutableQueue<T> implements Queue<T> {
 
-    private Stack<T> in;
-    private Stack<T> out;
+    private static final String EMPTY_EX_MSG = "Empty Queue";
+
+    private final Stack<T> in;
+    private final Stack<T> out;
 
     public ImmutableQueue() {
         this.in = new ImmutableStack<>();
@@ -14,8 +15,13 @@ public class ImmutableQueue<T> implements Queue<T> {
     }
 
     private ImmutableQueue(Stack<T> in, Stack<T> out) {
-        this.in = in;
-        this.out = out;
+        if (out.isEmpty()) {
+            this.in = new ImmutableStack<>();
+            this.out = in.reverse();
+        } else {
+            this.in = in;
+            this.out = out;
+        }
     }
 
     @Override
@@ -26,18 +32,14 @@ public class ImmutableQueue<T> implements Queue<T> {
     @Override
     public Queue<T> deQueue() {
         if (this.isEmpty())
-            throw new UnsupportedOperationException("Empty Queue");
-        if (out.isEmpty())
-            out = in.reverse();
+            throw new UnsupportedOperationException(EMPTY_EX_MSG);
         return new ImmutableQueue<>(in, out.pop());
     }
 
     @Override
     public T head() {
         if (this.isEmpty())
-            throw new NoSuchElementException("Empty Queue");
-        if (out.isEmpty())
-            out = in.reverse();
+            throw new NoSuchElementException(EMPTY_EX_MSG);
         return out.peek();
     }
 
