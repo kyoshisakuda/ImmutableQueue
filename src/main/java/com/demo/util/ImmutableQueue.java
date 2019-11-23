@@ -1,55 +1,48 @@
 package com.demo.util;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 public class ImmutableQueue<T> implements Queue<T> {
 
-    private Element<T> head;
-    private Element<T> tail;
+    private Stack<T> in;
+    private Stack<T> out;
 
+    public ImmutableQueue() {
+        this.in = new ImmutableStack<>();
+        this.out = new ImmutableStack<>();
+    }
+
+    private ImmutableQueue(Stack<T> in, Stack<T> out) {
+        this.in = in;
+        this.out = out;
+    }
+
+    @Override
     public Queue<T> enQueue(T t) {
-        return this;
+        return new ImmutableQueue<T>(in.push(t), out);
     }
 
+    @Override
     public Queue<T> deQueue() {
-        return null;
+        if (this.isEmpty())
+            throw new UnsupportedOperationException("Empty Queue");
+        if (out.isEmpty())
+            out = in.reverse();
+        return new ImmutableQueue<>(in, out.pop());
     }
 
+    @Override
     public T head() {
-        return null;
+        if (this.isEmpty())
+            throw new NoSuchElementException("Empty Queue");
+        if (out.isEmpty())
+            out = in.reverse();
+        return out.peek();
     }
 
+    @Override
     public boolean isEmpty() {
-        return false;
+        return in.isEmpty() && out.isEmpty();
     }
-
-    public Element<T> getHead() {
-        return head;
-    }
-
-    public Element<T> getTail() {
-        return tail;
-    }
-
-    class Element<T> {
-
-        private T value;
-        private Element<T> next;
-
-        public T getValue() {
-            return value;
-        }
-
-        public void setValue(T value) {
-            this.value = value;
-        }
-
-        public Element<T> getNext() {
-            return next;
-        }
-
-        public void setNext(Element<T> next) {
-            this.next = next;
-        }
-
-    }
-
 }
