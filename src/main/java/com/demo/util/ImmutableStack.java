@@ -12,13 +12,13 @@ public class ImmutableStack<T> implements Stack<T> {
         this(null, null);
     }
 
-    public static ImmutableStack getEmptyStack() {
-        return EmptyStack.getInstance();
-    }
-
     private ImmutableStack(T head, ImmutableStack<T> tail) {
         this.head = head;
         this.tail = tail;
+    }
+
+    public static ImmutableStack getEmptyStack() {
+        return EmptyStack.getInstance();
     }
 
     @Override
@@ -28,6 +28,8 @@ public class ImmutableStack<T> implements Stack<T> {
 
     @Override
     public Stack<T> pop() {
+        if (tail.isEmpty())
+            return getEmptyStack();
         return new ImmutableStack<T>(tail.head, tail.tail);
     }
 
@@ -43,7 +45,7 @@ public class ImmutableStack<T> implements Stack<T> {
 
     @Override
     public Stack<T> reverse() {
-        Stack<T> reversedStack = new ImmutableStack<>();
+        Stack<T> reversedStack = getEmptyStack();
         Stack<T> temp = this;
         while (!temp.isEmpty()) {
             reversedStack = reversedStack.push(temp.peek());

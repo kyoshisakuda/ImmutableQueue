@@ -62,6 +62,14 @@ public class ImmutableQueueTest {
         assertEquals("B", newQueue.head());
     }
 
+    @Test
+    public void deQueue_whenHasOneElement_returnEmptyQueue() {
+        Queue<String> oldQueue = ImmutableQueue.getEmptyQueue();
+        oldQueue = oldQueue.enQueue("A");
+        Queue<String> newQueue = oldQueue.deQueue();
+        assertTrue(newQueue.isEmpty());
+    }
+
     @Test(expected = UnsupportedOperationException.class)
     public void deQueue_whenEmpty_throwUnsupportedOperationException() {
         Queue<String> emptyQueue = ImmutableQueue.getEmptyQueue();
