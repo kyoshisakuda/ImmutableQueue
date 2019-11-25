@@ -45,13 +45,13 @@ public class ImmutableStack<T> implements Stack<T> {
 
     @Override
     public Stack<T> reverse() {
-        Stack<T> reversedStack = getEmptyStack();
-        Stack<T> temp = this;
-        while (!temp.isEmpty()) {
-            reversedStack = reversedStack.push(temp.peek());
-            temp = temp.pop();
-        }
-        return reversedStack;
+        return recursiveReverse(this, getEmptyStack());
+    }
+
+    private Stack<T> recursiveReverse(Stack<T> source, Stack<T> result) {
+        if (source.isEmpty())
+            return result;
+        return recursiveReverse(source.pop(), result.push(source.peek()));
     }
 
     private static class EmptyStack<T> extends ImmutableStack<T> {
