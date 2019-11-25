@@ -10,20 +10,20 @@ public class ImmutableStackTest {
 
     @Test
     public void isEmpty_whenNoElementsAdded_returnTrue() {
-        Stack<String> stack = new ImmutableStack<>();
+        Stack<String> stack = ImmutableStack.getEmptyStack();
         assertTrue(stack.isEmpty());
     }
 
     @Test
     public void isEmpty_whenAnElementIsAdded_returnFalse() {
-        Stack<String> stack = new ImmutableStack<>();
-        stack =  stack.push("A");
+        Stack<String> stack = ImmutableStack.getEmptyStack();
+        stack = stack.push("A");
         assertFalse(stack.isEmpty());
     }
 
     @Test
     public void push_returnNewStackWithElement() {
-        Stack<String> oldStack = new ImmutableStack<>();
+        Stack<String> oldStack = ImmutableStack.getEmptyStack();
         Stack<String> newStack = oldStack.push("A");
         assertNotSame(oldStack, newStack);
         assertFalse(newStack.isEmpty());
@@ -32,7 +32,7 @@ public class ImmutableStackTest {
 
     @Test
     public void peek_whenHasElements_returnLastElementAdded() {
-        Stack<String> stack = new ImmutableStack<>();
+        Stack<String> stack = ImmutableStack.getEmptyStack();
         stack = stack.push("A");
         stack = stack.push("B");
         assertEquals("B", stack.peek());
@@ -40,13 +40,13 @@ public class ImmutableStackTest {
 
     @Test(expected = NoSuchElementException.class)
     public void peek_whenEmpty_throwNoSuchElementException() {
-        Stack<String> stack = new ImmutableStack<>();
+        Stack<String> stack = ImmutableStack.getEmptyStack();
         stack.peek();
     }
 
     @Test
     public void pop_returnNewStackWithoutLastElement() {
-        Stack<String> oldStack = new ImmutableStack<>();
+        Stack<String> oldStack = ImmutableStack.getEmptyStack();
         oldStack = oldStack.push("A");
         Stack<String> newStack = oldStack.pop();
         assertNotSame(oldStack, newStack);
@@ -56,13 +56,13 @@ public class ImmutableStackTest {
 
     @Test(expected = UnsupportedOperationException.class)
     public void pop_whenEmpty_throwUnSupportedOperationException() {
-        Stack<String> stack = new ImmutableStack<>();
+        Stack<String> stack = ImmutableStack.getEmptyStack();
         stack.pop();
     }
 
     @Test
     public void reverse_returnNewStackReversed() {
-        Stack<String> oldStack = new ImmutableStack<>();
+        Stack<String> oldStack = ImmutableStack.getEmptyStack();
         oldStack = oldStack.push("A");
         oldStack = oldStack.push("B");
         oldStack = oldStack.push("C");
@@ -80,8 +80,8 @@ public class ImmutableStackTest {
 
     @Test
     public void reverse_whenEmpty_returnEmptyStack() {
-        Stack<String> oldStack = new ImmutableStack<>();
-        Stack<String> newStack = new ImmutableStack<>();
+        Stack<String> oldStack = ImmutableStack.getEmptyStack();
+        Stack<String> newStack = ImmutableStack.getEmptyStack();
         assertTrue(newStack.isEmpty());
     }
 }

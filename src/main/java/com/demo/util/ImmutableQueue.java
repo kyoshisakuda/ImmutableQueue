@@ -10,13 +10,13 @@ public class ImmutableQueue<T> implements Queue<T> {
     private final Stack<T> out;
 
     public ImmutableQueue() {
-        this.in = new ImmutableStack<>();
-        this.out = new ImmutableStack<>();
+        this.in = ImmutableStack.getEmptyStack();
+        this.out = ImmutableStack.getEmptyStack();
     }
 
     private ImmutableQueue(Stack<T> in, Stack<T> out) {
         if (out.isEmpty()) {
-            this.in = new ImmutableStack<>();
+            this.in = ImmutableStack.getEmptyStack();
             this.out = in.reverse();
         } else {
             this.in = in;
