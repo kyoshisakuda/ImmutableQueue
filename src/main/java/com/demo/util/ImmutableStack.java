@@ -38,7 +38,7 @@ public class ImmutableStack<T> implements Stack<T> {
 
     @Override
     public boolean isEmpty() {
-        return Objects.isNull(head);
+        return false;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ImmutableStack<T> implements Stack<T> {
         private EmptyStack() {
         }
 
-        public static EmptyStack getInstance() {
+        private static EmptyStack getInstance() {
             if (Objects.isNull(emptyStack))
                 emptyStack = new EmptyStack();
             return emptyStack;
@@ -69,7 +69,7 @@ public class ImmutableStack<T> implements Stack<T> {
 
         @Override
         public Stack<T> push(T t) {
-            return new ImmutableStack<>(t, this);
+            return super.push(t);
         }
 
         @Override
